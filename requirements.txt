@@ -1,0 +1,7 @@
+beautifulsoup4
+input-helper
+fs-helper
+lxml
+requests
+urllib3
+xmljson
