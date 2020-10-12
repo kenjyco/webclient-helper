@@ -88,7 +88,7 @@ class SomeClient(wh.WebClient):
         )
 
 
-some_client = SentinelClient(
+some_client = SomeClient(
     username='myuser',
     password='mypass',
     base_url='https://somewhere.com',
