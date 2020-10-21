@@ -89,63 +89,138 @@ class WebClient(object):
             assert self._token_type is not None, "self._token is set, but not self._token_type"
         self._set_auth_header()
 
-    def OPTIONS(self, url, debug=False):
+    def OPTIONS(self, url, headers=None, debug=False, **kwargs):
         """Send a OPTIONS request and return response object
 
         - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
         - debug: if True, enter debugger before returning
-        """
-        return wh.OPTIONS(url, session=self.session, debug=debug)
 
-    def HEAD(self, url, debug=False):
+        Other kwargs are passed to webclient_helper.session_method
+        """
+        return wh.session_method(
+            'options',
+            url,
+            session=self.session,
+            headers=headers,
+            debug=debug,
+            **kwargs
+        )
+
+    def HEAD(self, url, headers=None, debug=False, **kwargs):
         """Send a HEAD request and return response object
 
         - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
         - debug: if True, enter debugger before returning
-        """
-        return wh.HEAD(url, session=self.session, debug=debug)
 
-    def GET(self, url, params=None, debug=False):
+        Other kwargs are passed to webclient_helper.session_method
+        """
+        return wh.session_method(
+            'head',
+            url,
+            session=self.session,
+            headers=headers,
+            debug=debug,
+            **kwargs
+        )
+
+    def GET(self, url, headers=None, params=None, debug=False, **kwargs):
         """Send a GET request and return response data
 
         - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
         - params: a dict with query string vars and values
         - debug: if True, enter debugger before returning
-        """
-        return wh.GET(url, session=self.session, params=params, debug=debug)
 
-    def POST(self, url, data=None, json=None, debug=False):
+        Other kwargs are passed to webclient_helper.session_method
+        """
+        return wh.session_method(
+            'get',
+            url,
+            session=self.session,
+            headers=headers,
+            params=params,
+            debug=debug,
+            **kwargs
+        )
+
+    def POST(self, url, headers=None, data=None, json=None, debug=False, **kwargs):
         """Send a POST request and return response object
 
         - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
         - data: a dict to send in the body (non-JSON)
         - json: a dict to send in the body
         - debug: if True, enter debugger before returning
-        """
-        return wh.POST(url, session=self.session, data=data, json=json, debug=debug)
 
-    def PUT(self, url, data=None, debug=False):
+        Other kwargs are passed to webclient_helper.session_method
+        """
+        return wh.session_method(
+            'post',
+            url,
+            session=self.session,
+            headers=headers,
+            data=data,
+            json=json,
+            debug=debug,
+            **kwargs
+        )
+
+    def PUT(self, url, headers=None, data=None, debug=False, **kwargs):
         """Send a PUT request and return response object
 
         - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
         - data: a dict to send in the body (non-JSON)
         - debug: if True, enter debugger before returning
-        """
-        return wh.PUT(url, session=self.session, data=data, debug=debug)
 
-    def PATCH(self, url, data=None, debug=False):
+        Other kwargs are passed to webclient_helper.session_method
+        """
+        return wh.session_method(
+            'put',
+            url,
+            session=self.session,
+            headers=headers,
+            data=data,
+            debug=debug,
+            **kwargs
+        )
+
+    def PATCH(self, url, headers=None, data=None, debug=False, **kwargs):
         """Send a PATCH request and return response object
 
         - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
         - data: a dict to send in the body (non-JSON)
         - debug: if True, enter debugger before returning
-        """
-        return wh.PATCH(url, session=self.session, data=data, debug=debug)
 
-    def DELETE(self, url, debug=False):
+        Other kwargs are passed to webclient_helper.session_method
+        """
+        return wh.session_method(
+            'patch',
+            url,
+            session=self.session,
+            headers=headers,
+            data=data,
+            debug=debug,
+            **kwargs
+        )
+
+    def DELETE(self, url, headers=None, debug=False, **kwargs):
         """Send a DELETE request and return response object
 
         - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
         - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.DELETE(url, session=self.session, debug=debug)
+        return wh.session_method(
+            'delete',
+            url,
+            session=self.session,
+            headers=headers,
+            debug=debug,
+            **kwargs
+        )
