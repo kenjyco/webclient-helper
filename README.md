@@ -4,6 +4,24 @@
 $ pip3 install webclient-helper
 ````
 
+#### Or, install with beautifulsoup4 and lxml
+
+Install system requirements for `lxml`
+
+```
+$ sudo apt-get install -y libxml2 libxslt1.1 libxml2-dev libxslt1-dev
+
+or
+
+% brew install libxml2
+```
+
+Install with pip
+
+```
+$ pip3 install webclient-helper[bs4]
+````
+
 ## Usage
 
 > `import webclient_helper as wh`
@@ -50,6 +68,79 @@ WebClient(username=None, password=None, token=None, token_type=None, base_url=''
 
         If no login method is defined, any supplied username/password will be
         passed to new_requests_session (for basic auth)
+
+    OPTIONS(self, url, headers=None, debug=False, **kwargs)
+        Send a OPTIONS request and return response object
+
+        - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
+        - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
+
+    HEAD(self, url, headers=None, debug=False, **kwargs)
+        Send a HEAD request and return response object
+
+        - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
+        - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
+
+    GET(self, url, headers=None, params=None, debug=False, **kwargs)
+        Send a GET request and return response data
+
+        - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
+        - params: a dict with query string vars and values
+        - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
+
+    POST(self, url, headers=None, data=None, json=None, debug=False, **kwargs)
+        Send a POST request and return response object
+
+        - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
+        - data: a dict to send in the body (non-JSON)
+        - json: a dict to send in the body
+        - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
+
+    PUT(self, url, headers=None, data=None, debug=False, **kwargs)
+        Send a PUT request and return response object
+
+        - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
+        - data: a dict to send in the body (non-JSON)
+        - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
+
+    PATCH(self, url, headers=None, data=None, debug=False, **kwargs)
+        Send a PATCH request and return response object
+
+        - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
+        - data: a dict to send in the body (non-JSON)
+        - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
+
+    DELETE(self, url, headers=None, debug=False, **kwargs)
+        Send a DELETE request and return response object
+
+        - url: url/endpoint
+        - headers: dict of headers to update on the session before making request
+        - debug: if True, enter debugger before returning
+
+        Other kwargs are passed to webclient_helper.session_method
+
+    history_explorer(self, return_selections=False)
+        Select responses from history to explore in ipython (if ipython installed)
+
+        - return_selections: if True, return the selections from history
 ```
 
 ## Example (GitHub)
