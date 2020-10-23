@@ -2,6 +2,7 @@ __all__ = ['WebClient']
 
 
 import inspect
+import input_helper as ih
 import webclient_helper as wh
 
 
@@ -98,7 +99,7 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.session_method(
+        response = wh.session_method(
             'options',
             url,
             session=self.session,
@@ -106,6 +107,12 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        self._history.append({
+            'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
+            'summary': wh.get_summary_from_response(response),
+            'response': response
+        })
+        return response
 
     def HEAD(self, url, headers=None, debug=False, **kwargs):
         """Send a HEAD request and return response object
@@ -116,7 +123,7 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.session_method(
+        response = wh.session_method(
             'head',
             url,
             session=self.session,
@@ -124,6 +131,12 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        self._history.append({
+            'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
+            'summary': wh.get_summary_from_response(response),
+            'response': response
+        })
+        return response
 
     def GET(self, url, headers=None, params=None, debug=False, **kwargs):
         """Send a GET request and return response data
@@ -135,7 +148,7 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.session_method(
+        response = wh.session_method(
             'get',
             url,
             session=self.session,
@@ -144,6 +157,12 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        self._history.append({
+            'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
+            'summary': wh.get_summary_from_response(response),
+            'response': response
+        })
+        return response
 
     def POST(self, url, headers=None, data=None, json=None, debug=False, **kwargs):
         """Send a POST request and return response object
@@ -156,7 +175,7 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.session_method(
+        response = wh.session_method(
             'post',
             url,
             session=self.session,
@@ -166,6 +185,12 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        self._history.append({
+            'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
+            'summary': wh.get_summary_from_response(response),
+            'response': response
+        })
+        return response
 
     def PUT(self, url, headers=None, data=None, debug=False, **kwargs):
         """Send a PUT request and return response object
@@ -177,7 +202,7 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.session_method(
+        response = wh.session_method(
             'put',
             url,
             session=self.session,
@@ -186,6 +211,12 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        self._history.append({
+            'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
+            'summary': wh.get_summary_from_response(response),
+            'response': response
+        })
+        return response
 
     def PATCH(self, url, headers=None, data=None, debug=False, **kwargs):
         """Send a PATCH request and return response object
@@ -197,7 +228,7 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.session_method(
+        response = wh.session_method(
             'patch',
             url,
             session=self.session,
@@ -206,6 +237,12 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        self._history.append({
+            'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
+            'summary': wh.get_summary_from_response(response),
+            'response': response
+        })
+        return response
 
     def DELETE(self, url, headers=None, debug=False, **kwargs):
         """Send a DELETE request and return response object
@@ -216,7 +253,7 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
-        return wh.session_method(
+        response = wh.session_method(
             'delete',
             url,
             session=self.session,
@@ -224,3 +261,26 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        self._history.append({
+            'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
+            'summary': wh.get_summary_from_response(response),
+            'response': response
+        })
+        return response
+
+    def history_explorer(self, return_selections=False):
+        """Select responses from history to explore in ipython (if ipython installed)
+
+        - return_selections: if True, return the selections from history
+        """
+        selected_responses = ih.make_selections(
+            self._history,
+            item_format='{summary} (called by {caller})',
+            prompt='Selet responses to inspect',
+            wrap=False,
+        )
+
+        if selected_responses:
+            ih.start_ipython(warn=True, selected_responses=selected_responses)
+            if return_selections:
+                return selected_responses
