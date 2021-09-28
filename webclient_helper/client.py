@@ -276,7 +276,7 @@ class WebClient(object):
         selected_responses = ih.make_selections(
             self._history,
             item_format='{summary} (called by {caller})',
-            prompt='Selet responses to inspect',
+            prompt='Select responses to inspect',
             wrap=False,
         )
 
