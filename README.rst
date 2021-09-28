@@ -149,21 +149,37 @@ GET, POST, PUT, PATCH, DELETE) to interact with an API.
 Example (GitHub)
 ----------------
 
-   Note: To use the GitHub API, first generate a “personal access token”
-   at https://github.com/settings/tokens/new
+   See https://docs.github.com/en/rest/reference for endpoints to hit.
+
+   Note: To (fully) use the GitHub API, first generate a “personal
+   access token” at https://github.com/settings/tokens/new and save it
+   to your ``~/.bashrc`` or ``~/.zshrc`` file.
 
 ::
 
+   export GITHUB_ACCESS_TOKEN="ghp_vx..."
+
+Then use it in your Python code (after ``source ~/.bashrc`` or
+``source ~/.zshrc`` for the first time)
+
+::
+
+   import webclient_helper as wh
    from os import getenv
+
 
    access_token = getenv('GITHUB_ACCESS_TOKEN')
    gh_client = wh.WebClient(token=access_token, token_type='token')
-   data = gh_client.GET('https://api.github.com/user/repos')
+   resp = gh_client.GET('https://api.github.com/user/repos')
+   data = resp.json()
 
 Example (subclass with custom login)
 ------------------------------------
 
 ::
+
+   import webclient_helper as wh
+
 
    class SomeClient(wh.WebClient):
        def login(self):
