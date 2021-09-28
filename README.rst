@@ -92,7 +92,7 @@ GET, POST, PUT, PATCH, DELETE) to interact with an API.
            Other kwargs are passed to webclient_helper.session_method
 
        GET(self, url, headers=None, params=None, debug=False, **kwargs)
-           Send a GET request and return response data
+           Send a GET request and return response object
 
            - url: url/endpoint
            - headers: dict of headers to update on the session before making request
