@@ -6,14 +6,14 @@ with open('README.rst', 'r') as fp:
 
 setup(
     name='webclient-helper',
-    version='0.0.3',
+    version='0.0.4',
     description='Helpful WebClient class to interact with APIs on the web',
     long_description=long_description,
     author='Ken',
     author_email='kenjyco@gmail.com',
     license='MIT',
     url='https://github.com/kenjyco/webclient-helper',
-    download_url='https://github.com/kenjyco/webclient-helper/tarball/v0.0.3',
+    download_url='https://github.com/kenjyco/webclient-helper/tarball/v0.0.4',
     packages=find_packages(),
     install_requires=[
         'fs-helper',
