@@ -1,7 +1,5 @@
-beautifulsoup4
-input-helper
 fs-helper
-lxml
+input-helper
 requests
 urllib3
 xmljson
