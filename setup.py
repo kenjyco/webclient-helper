@@ -12,14 +12,14 @@ with open('requirements-bs4.txt', 'r') as fp:
 
 setup(
     name='webclient-helper',
-    version='0.0.4',
+    version='0.0.5',
     description='Helpful WebClient class to interact with APIs on the web',
     long_description=long_description,
     author='Ken',
     author_email='kenjyco@gmail.com',
     license='MIT',
     url='https://github.com/kenjyco/webclient-helper',
-    download_url='https://github.com/kenjyco/webclient-helper/tarball/v0.0.4',
+    download_url='https://github.com/kenjyco/webclient-helper/tarball/v0.0.5',
     packages=find_packages(),
     install_requires=requirements,
     extras_require={
