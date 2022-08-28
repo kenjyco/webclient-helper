@@ -7,7 +7,7 @@ from urllib.parse import urlparse
 try:
     from bs4 import BeautifulSoup, FeatureNotFound
     import os.path
-except ImportError:
+except (ImportError, ModuleNotFoundError):
     BeautifulSoup = None
 
 
