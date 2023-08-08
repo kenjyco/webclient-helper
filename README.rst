@@ -195,7 +195,7 @@ Example (subclass with custom login)
 
        def get_something(self, params=None, debug=False):
            return self.GET(
-               self._base_url + '/api/something',
+               '/api/something',
                params=params,
                debug=debug
            )

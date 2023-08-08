@@ -100,6 +100,9 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
+        if url.startswith('/') and self._base_url:
+            url = self._base_url + url
+
         response = wh.session_method(
             'options',
             url,
@@ -124,6 +127,9 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
+        if url.startswith('/') and self._base_url:
+            url = self._base_url + url
+
         response = wh.session_method(
             'head',
             url,
@@ -149,6 +155,9 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
+        if url.startswith('/') and self._base_url:
+            url = self._base_url + url
+
         response = wh.session_method(
             'get',
             url,
@@ -176,6 +185,9 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
+        if url.startswith('/') and self._base_url:
+            url = self._base_url + url
+
         response = wh.session_method(
             'post',
             url,
@@ -203,6 +215,9 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
+        if url.startswith('/') and self._base_url:
+            url = self._base_url + url
+
         response = wh.session_method(
             'put',
             url,
@@ -229,6 +244,9 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
+        if url.startswith('/') and self._base_url:
+            url = self._base_url + url
+
         response = wh.session_method(
             'patch',
             url,
@@ -254,6 +272,9 @@ class WebClient(object):
 
         Other kwargs are passed to webclient_helper.session_method
         """
+        if url.startswith('/') and self._base_url:
+            url = self._base_url + url
+
         response = wh.session_method(
             'delete',
             url,
