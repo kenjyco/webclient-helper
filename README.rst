@@ -73,35 +73,41 @@ GET, POST, PUT, PATCH, DELETE) to interact with an API.
            If no login method is defined, any supplied username/password will be
            passed to new_requests_session (for basic auth)
 
-       OPTIONS(self, url, headers=None, debug=False, **kwargs)
+       OPTIONS(self, url, headers=None, debug=False, retry=False, **kwargs)
            Send a OPTIONS request and return response object
 
            - url: url/endpoint
            - headers: dict of headers to update on the session before making request
            - debug: if True, enter debugger before returning
+           - retry: if True and initial response is "401 Unauthorized", call
+             self.set_session() and try again
 
            Other kwargs are passed to webclient_helper.session_method
 
-       HEAD(self, url, headers=None, debug=False, **kwargs)
+       HEAD(self, url, headers=None, debug=False, retry=False, **kwargs)
            Send a HEAD request and return response object
 
            - url: url/endpoint
            - headers: dict of headers to update on the session before making request
            - debug: if True, enter debugger before returning
+           - retry: if True and initial response is "401 Unauthorized", call
+             self.set_session() and try again
 
            Other kwargs are passed to webclient_helper.session_method
 
-       GET(self, url, headers=None, params=None, debug=False, **kwargs)
+       GET(self, url, headers=None, params=None, debug=False, retry=False, **kwargs)
            Send a GET request and return response object
 
            - url: url/endpoint
            - headers: dict of headers to update on the session before making request
            - params: a dict with query string vars and values
            - debug: if True, enter debugger before returning
+           - retry: if True and initial response is "401 Unauthorized", call
+             self.set_session() and try again
 
            Other kwargs are passed to webclient_helper.session_method
 
-       POST(self, url, headers=None, data=None, json=None, debug=False, **kwargs)
+       POST(self, url, headers=None, data=None, json=None, debug=False, retry=False, **kwargs)
            Send a POST request and return response object
 
            - url: url/endpoint
@@ -109,35 +115,43 @@ GET, POST, PUT, PATCH, DELETE) to interact with an API.
            - data: a dict to send in the body (non-JSON)
            - json: a dict to send in the body
            - debug: if True, enter debugger before returning
+           - retry: if True and initial response is "401 Unauthorized", call
+             self.set_session() and try again
 
            Other kwargs are passed to webclient_helper.session_method
 
-       PUT(self, url, headers=None, data=None, debug=False, **kwargs)
+       PUT(self, url, headers=None, data=None, debug=False, retry=False, **kwargs)
            Send a PUT request and return response object
 
            - url: url/endpoint
            - headers: dict of headers to update on the session before making request
            - data: a dict to send in the body (non-JSON)
            - debug: if True, enter debugger before returning
+           - retry: if True and initial response is "401 Unauthorized", call
+             self.set_session() and try again
 
            Other kwargs are passed to webclient_helper.session_method
 
-       PATCH(self, url, headers=None, data=None, debug=False, **kwargs)
+       PATCH(self, url, headers=None, data=None, debug=False, retry=False, **kwargs)
            Send a PATCH request and return response object
 
            - url: url/endpoint
            - headers: dict of headers to update on the session before making request
            - data: a dict to send in the body (non-JSON)
            - debug: if True, enter debugger before returning
+           - retry: if True and initial response is "401 Unauthorized", call
+             self.set_session() and try again
 
            Other kwargs are passed to webclient_helper.session_method
 
-       DELETE(self, url, headers=None, debug=False, **kwargs)
+       DELETE(self, url, headers=None, debug=False, retry=False, **kwargs)
            Send a DELETE request and return response object
 
            - url: url/endpoint
            - headers: dict of headers to update on the session before making request
            - debug: if True, enter debugger before returning
+           - retry: if True and initial response is "401 Unauthorized", call
+             self.set_session() and try again
 
            Other kwargs are passed to webclient_helper.session_method
 

@@ -91,12 +91,14 @@ class WebClient(object):
             assert self._token_type is not None, "self._token is set, but not self._token_type"
         self._set_auth_header()
 
-    def OPTIONS(self, url, headers=None, debug=False, **kwargs):
+    def OPTIONS(self, url, headers=None, debug=False, retry=False, **kwargs):
         """Send a OPTIONS request and return response object
 
         - url: url/endpoint
         - headers: dict of headers to update on the session before making request
         - debug: if True, enter debugger before returning
+        - retry: if True and initial response is "401 Unauthorized", call
+          self.set_session() and try again
 
         Other kwargs are passed to webclient_helper.session_method
         """
@@ -111,6 +113,17 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        if retry and response.status_code == 401:
+            self.set_session()
+            response = wh.session_method(
+                'options',
+                url,
+                session=self.session,
+                headers=headers,
+                debug=debug,
+                **kwargs
+            )
+
         self._history.append({
             'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
             'summary': wh.get_summary_from_response(response),
@@ -118,12 +131,14 @@ class WebClient(object):
         })
         return response
 
-    def HEAD(self, url, headers=None, debug=False, **kwargs):
+    def HEAD(self, url, headers=None, debug=False, retry=False, **kwargs):
         """Send a HEAD request and return response object
 
         - url: url/endpoint
         - headers: dict of headers to update on the session before making request
         - debug: if True, enter debugger before returning
+        - retry: if True and initial response is "401 Unauthorized", call
+          self.set_session() and try again
 
         Other kwargs are passed to webclient_helper.session_method
         """
@@ -138,6 +153,17 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        if retry and response.status_code == 401:
+            self.set_session()
+            response = wh.session_method(
+                'head',
+                url,
+                session=self.session,
+                headers=headers,
+                debug=debug,
+                **kwargs
+            )
+
         self._history.append({
             'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
             'summary': wh.get_summary_from_response(response),
@@ -145,13 +171,15 @@ class WebClient(object):
         })
         return response
 
-    def GET(self, url, headers=None, params=None, debug=False, **kwargs):
+    def GET(self, url, headers=None, params=None, debug=False, retry=False, **kwargs):
         """Send a GET request and return response object
 
         - url: url/endpoint
         - headers: dict of headers to update on the session before making request
         - params: a dict with query string vars and values
         - debug: if True, enter debugger before returning
+        - retry: if True and initial response is "401 Unauthorized", call
+          self.set_session() and try again
 
         Other kwargs are passed to webclient_helper.session_method
         """
@@ -167,6 +195,18 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        if retry and response.status_code == 401:
+            self.set_session()
+            response = wh.session_method(
+                'get',
+                url,
+                session=self.session,
+                headers=headers,
+                params=params,
+                debug=debug,
+                **kwargs
+            )
+
         self._history.append({
             'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
             'summary': wh.get_summary_from_response(response),
@@ -174,7 +214,7 @@ class WebClient(object):
         })
         return response
 
-    def POST(self, url, headers=None, data=None, json=None, debug=False, **kwargs):
+    def POST(self, url, headers=None, data=None, json=None, debug=False, retry=False, **kwargs):
         """Send a POST request and return response object
 
         - url: url/endpoint
@@ -182,6 +222,8 @@ class WebClient(object):
         - data: a dict to send in the body (non-JSON)
         - json: a dict to send in the body
         - debug: if True, enter debugger before returning
+        - retry: if True and initial response is "401 Unauthorized", call
+          self.set_session() and try again
 
         Other kwargs are passed to webclient_helper.session_method
         """
@@ -198,6 +240,19 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        if retry and response.status_code == 401:
+            self.set_session()
+            response = wh.session_method(
+                'post',
+                url,
+                session=self.session,
+                headers=headers,
+                data=data,
+                json=json,
+                debug=debug,
+                **kwargs
+            )
+
         self._history.append({
             'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
             'summary': wh.get_summary_from_response(response),
@@ -205,13 +260,15 @@ class WebClient(object):
         })
         return response
 
-    def PUT(self, url, headers=None, data=None, debug=False, **kwargs):
+    def PUT(self, url, headers=None, data=None, debug=False, retry=False, **kwargs):
         """Send a PUT request and return response object
 
         - url: url/endpoint
         - headers: dict of headers to update on the session before making request
         - data: a dict to send in the body (non-JSON)
         - debug: if True, enter debugger before returning
+        - retry: if True and initial response is "401 Unauthorized", call
+          self.set_session() and try again
 
         Other kwargs are passed to webclient_helper.session_method
         """
@@ -227,6 +284,18 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        if retry and response.status_code == 401:
+            self.set_session()
+            response = wh.session_method(
+                'put',
+                url,
+                session=self.session,
+                headers=headers,
+                data=data,
+                debug=debug,
+                **kwargs
+            )
+
         self._history.append({
             'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
             'summary': wh.get_summary_from_response(response),
@@ -234,13 +303,15 @@ class WebClient(object):
         })
         return response
 
-    def PATCH(self, url, headers=None, data=None, debug=False, **kwargs):
+    def PATCH(self, url, headers=None, data=None, debug=False, retry=False, **kwargs):
         """Send a PATCH request and return response object
 
         - url: url/endpoint
         - headers: dict of headers to update on the session before making request
         - data: a dict to send in the body (non-JSON)
         - debug: if True, enter debugger before returning
+        - retry: if True and initial response is "401 Unauthorized", call
+          self.set_session() and try again
 
         Other kwargs are passed to webclient_helper.session_method
         """
@@ -256,6 +327,18 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        if retry and response.status_code == 401:
+            self.set_session()
+            response = wh.session_method(
+                'patch',
+                url,
+                session=self.session,
+                headers=headers,
+                data=data,
+                debug=debug,
+                **kwargs
+            )
+
         self._history.append({
             'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
             'summary': wh.get_summary_from_response(response),
@@ -263,12 +346,14 @@ class WebClient(object):
         })
         return response
 
-    def DELETE(self, url, headers=None, debug=False, **kwargs):
+    def DELETE(self, url, headers=None, debug=False, retry=False, **kwargs):
         """Send a DELETE request and return response object
 
         - url: url/endpoint
         - headers: dict of headers to update on the session before making request
         - debug: if True, enter debugger before returning
+        - retry: if True and initial response is "401 Unauthorized", call
+          self.set_session() and try again
 
         Other kwargs are passed to webclient_helper.session_method
         """
@@ -283,6 +368,17 @@ class WebClient(object):
             debug=debug,
             **kwargs
         )
+        if retry and response.status_code == 401:
+            self.set_session()
+            response = wh.session_method(
+                'delete',
+                url,
+                session=self.session,
+                headers=headers,
+                debug=debug,
+                **kwargs
+            )
+
         self._history.append({
             'caller': inspect.getouterframes(inspect.currentframe(), 2)[1][3],
             'summary': wh.get_summary_from_response(response),
