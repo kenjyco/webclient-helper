@@ -58,6 +58,7 @@ class WebClient(object):
     def login(self):
         pass
 
+    @property
     def is_login_defined(self):
         """Return True if a login method is defined"""
         return inspect.getsource(self.login) != '    def login(self):\n        pass\n'
@@ -71,7 +72,7 @@ class WebClient(object):
 
     def set_session(self):
         """Get a new session object for self.session and invoke login method"""
-        if self.is_login_defined():
+        if self.is_login_defined:
             self.session = wh.new_requests_session(
                 user_agent=self._user_agent,
                 content_type=self._content_type,
