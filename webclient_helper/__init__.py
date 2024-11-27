@@ -5,6 +5,12 @@ import warnings
 from json import JSONDecodeError
 from urllib.parse import urlparse
 try:
+    ModuleNotFoundError
+except NameError:
+    class ModuleNotFoundError(ImportError):
+        pass
+
+try:
     from bs4 import BeautifulSoup, FeatureNotFound
     import os.path
 except (ImportError, ModuleNotFoundError):
